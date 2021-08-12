@@ -1,4 +1,4 @@
-def BUILD_NUMBER = System.getenv("BUILD_NUMBER") ?: "0"
+def VERSION = "1.1.1"
 def MAVEN_REPO = System.getenv("MAVEN_REPO") ?: ""
 def MAVEN_USERNAME = System.getenv("MAVEN_USERNAME") ?: ""
 def MAVEN_PASSWORD = System.getenv("MAVEN_PASSWORD") ?: ""
@@ -27,7 +27,7 @@ buildscript {
 apply plugin: 'forge'
 apply plugin: 'maven'
 
-version = "1.1." + BUILD_NUMBER
+version = VERSION
 group = "net.blay09.mods"
 archivesBaseName = "netherportalfix"
 
