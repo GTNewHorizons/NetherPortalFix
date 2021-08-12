@@ -45,7 +45,6 @@ public class BetterTeleporter extends Teleporter {
                 int toY = portalCompound.getInteger(NBT_TO_Y);
                 int toZ = portalCompound.getInteger(NBT_TO_Z);
                 PortalPositionAndDimension testTo = new PortalPositionAndDimension(toX, toY, toZ, portalCompound.getInteger(NBT_TO_DIM));
-                System.out.println(testTo.getDistanceSquaredToChunkCoordinates(to));
                 if (testTo.dimensionId == entity.worldObj.provider.dimensionId && testTo.getDistanceSquaredToChunkCoordinates(to) <= PORTAL_RANGE_SQR) {
                     tagList.removeTag(i);
                 }
