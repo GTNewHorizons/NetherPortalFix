@@ -34,11 +34,10 @@ public class BetterTeleporter extends Teleporter {
     @Override
     public void placeInPortal(Entity entity, double oldX, double oldY, double oldZ, float rotationYaw) {
         if (entity instanceof EntityPlayer) {
-            PortalPositionAndDimension from =
-                    new PortalPositionAndDimension((int) oldX, (int) oldY, (int) oldZ); // lastPortalPos
+            PortalPositionAndDimension from = new PortalPositionAndDimension((int) oldX, (int) oldY, (int) oldZ); // lastPortalPos
             super.placeInPortal(entity, oldX, oldY, oldZ, rotationYaw);
-            PortalPositionAndDimension to =
-                    new PortalPositionAndDimension(((EntityPlayer) entity).getPlayerCoordinates());
+            PortalPositionAndDimension to = new PortalPositionAndDimension(
+                    ((EntityPlayer) entity).getPlayerCoordinates());
             NBTTagCompound tagCompound = entity.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
             NBTTagList tagList = tagCompound.getTagList(NBT_RETURN_PORTALS, Constants.NBT.TAG_COMPOUND);
             for (int i = tagList.tagCount() - 1; i >= 0; i--) {
@@ -46,8 +45,11 @@ public class BetterTeleporter extends Teleporter {
                 int toX = portalCompound.getInteger(NBT_TO_X);
                 int toY = portalCompound.getInteger(NBT_TO_Y);
                 int toZ = portalCompound.getInteger(NBT_TO_Z);
-                PortalPositionAndDimension testTo =
-                        new PortalPositionAndDimension(toX, toY, toZ, portalCompound.getInteger(NBT_TO_DIM));
+                PortalPositionAndDimension testTo = new PortalPositionAndDimension(
+                        toX,
+                        toY,
+                        toZ,
+                        portalCompound.getInteger(NBT_TO_DIM));
                 if (testTo.dimensionId == entity.worldObj.provider.dimensionId
                         && testTo.getDistanceSquaredToChunkCoordinates(to) <= PORTAL_RANGE_SQR) {
                     tagList.removeTag(i);
@@ -81,10 +83,16 @@ public class BetterTeleporter extends Teleporter {
                 int toX = portalCompound.getInteger(NBT_TO_X);
                 int toY = portalCompound.getInteger(NBT_TO_Y);
                 int toZ = portalCompound.getInteger(NBT_TO_Z);
-                PortalPositionAndDimension to =
-                        new PortalPositionAndDimension(toX, toY, toZ, portalCompound.getInteger(NBT_TO_DIM));
-                PortalPosition lastPortalPosition =
-                        new PortalPosition((int) oldX, (int) oldY, (int) oldZ, world.getTotalWorldTime());
+                PortalPositionAndDimension to = new PortalPositionAndDimension(
+                        toX,
+                        toY,
+                        toZ,
+                        portalCompound.getInteger(NBT_TO_DIM));
+                PortalPosition lastPortalPosition = new PortalPosition(
+                        (int) oldX,
+                        (int) oldY,
+                        (int) oldZ,
+                        world.getTotalWorldTime());
                 if (to.dimensionId == entity.worldObj.provider.dimensionId
                         && to.getDistanceSquaredToChunkCoordinates(lastPortalPosition) <= PORTAL_RANGE_SQR) {
                     int x = MathHelper.floor_double(entity.posX);
@@ -95,7 +103,10 @@ public class BetterTeleporter extends Teleporter {
                     int fromY = portalCompound.getInteger(NBT_FROM_Y);
                     int fromZ = portalCompound.getInteger(NBT_FROM_Z);
                     PortalPositionAndDimension from = new PortalPositionAndDimension(
-                            fromX, fromY, fromZ, portalCompound.getInteger(NBT_FROM_DIM));
+                            fromX,
+                            fromY,
+                            fromZ,
+                            portalCompound.getInteger(NBT_FROM_DIM));
                     destinationCoordinateCache.add(key, from);
                     if (!destinationCoordinateKeys.contains(key)) {
                         destinationCoordinateKeys.add(key);
@@ -115,6 +126,7 @@ public class BetterTeleporter extends Teleporter {
     }
 
     public class PortalPositionAndDimension extends PortalPosition {
+
         public final int dimensionId;
 
         public PortalPositionAndDimension(ChunkCoordinates pos) {
